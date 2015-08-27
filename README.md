@@ -8,13 +8,14 @@ ResizeController
 ## Installation
 
 ```shell
-npm install properjs-resizecontroller
+npm install properjs-resizecontroller --save-dev
 ```
 
 
 ## Usage
 ```javascript
-var resizer = new ResizeController();
+var ResizeController = require( "properjs-resizecontroller" ),
+    resizer = new ResizeController();
 
 // Bind event
 resizer.on( "resize", function () {

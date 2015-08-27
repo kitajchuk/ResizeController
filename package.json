@@ -2,7 +2,7 @@
     "title": "ResizeController",
     "name": "properjs-resizecontroller",
     "description": "Window resize / orientationchange event controller using request animation frame.",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "homepage": "https://github.com/ProperJS/ResizeController",
     "readmeFilename": "README.md",
     "contributors": [
@@ -27,22 +27,17 @@
     ],
     "main": "ResizeController",
     "scripts": {
-        "prepublish": "properjs"
-    },
-    "properjs": {
-        "dependencies": ["properjs-raf", "properjs-controller"],
-        "output": "dist/ResizeController.js"
+        "test": "webpack test/test.js test/dist/common.js ; cp ResizeController.js test/dist/browser.js"
     },
     "dependencies": {
-        "properjs-raf": "~0.1",
-        "properjs-controller": "~0.1"
+        "properjs-controller": "~0.2"
     },
     "keywords": [
-        "raf",
+        "properjs",
         "event",
-        "requestanimationframe",
+        "requestAnimationFrame",
         "resize",
-        "orientationchange",
-        "device"
+        "window",
+        "orientationchange"
     ]
 }
