@@ -29,6 +29,8 @@ resizer.on( "resize", function () {
 - resize
 - resizedown
 - resizeup
+- resizewidth
+- resizeheight
 - orientationchange
 - orientationportrait
 - orientationlandscape
@@ -36,7 +38,7 @@ resizer.on( "resize", function () {
 
 
 ## Methods
-- on()
-- getViewport()
+- on( event, handler )
+- getViewport() -> { width, height, orient }
 - isPortrait()
 - isLandscape()
