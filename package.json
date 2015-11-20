@@ -2,7 +2,7 @@
     "title": "ResizeController",
     "name": "properjs-resizecontroller",
     "description": "Window resize / orientationchange event controller using request animation frame.",
-    "version": "0.2.0",
+    "version": "0.2.1",
     "homepage": "https://github.com/ProperJS/ResizeController",
     "readmeFilename": "README.md",
     "contributors": [
