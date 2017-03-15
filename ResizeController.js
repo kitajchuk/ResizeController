@@ -8,26 +8,17 @@
  *
  */
 (function ( factory ) {
-    
+
     if ( typeof exports === "object" && typeof module !== "undefined" ) {
         module.exports = factory();
 
     } else if ( typeof window !== "undefined" ) {
         window.ResizeController = factory();
     }
-    
+
 })(function () {
 
-    var Controller = require( "properjs-controller" ),
-
-        // Orientation?
-        _hasOrientation = ("orientation" in window),
-
-        // Current window viewport
-        _currentView = null,
-
-        // Singleton
-        _instance = null;
+    var Controller = require( "properjs-controller" );
 
     /**
      *
@@ -48,108 +39,127 @@
      *
      */
     var ResizeController = function () {
-        // Singleton
-        if ( !_instance ) {
-            _instance = this;
+        Controller.call( this );
 
-            // Initial viewport settings
-            _currentView = _instance.getViewport();
+        this.currentView = this.getViewport();
+        this.hasOrientation = ("orientation" in window);
 
-            // Call on parent cycle
-            this.go(function () {
-                var currentView = _instance.getViewport(),
-                    isStill = (currentView.width === _currentView.width && currentView.height === _currentView.height),
-                    isResize = (currentView.width !== _currentView.width || currentView.height !== _currentView.height),
-                    isResizeUp = (currentView.width > _currentView.width || currentView.height > _currentView.height),
-                    isResizeDown = (currentView.width < _currentView.width || currentView.height < _currentView.height),
-                    isResizeWidth = (currentView.width !== _currentView.width),
-                    isResizeHeight = (currentView.height !== _currentView.height),
-                    isOrientation = (currentView.orient !== _currentView.orient),
-                    isOrientationPortrait = (currentView.orient !== _currentView.orient && currentView.orient !== 90),
-                    isOrientationLandscape = (currentView.orient !== _currentView.orient && currentView.orient === 90);
-
-                // Fire blanket resize event
-                if ( isResize ) {
-                    /**
-                     *
-                     * @event resize
-                     *
-                     */
-                    _instance.fire( "resize" );
-                }
-
-                // Fire resizeup and resizedown
-                if ( isResizeDown ) {
-                    /**
-                     *
-                     * @event resizedown
-                     *
-                     */
-                    _instance.fire( "resizedown" );
-
-                } else if ( isResizeUp ) {
-                    /**
-                     *
-                     * @event resizeup
-                     *
-                     */
-                    _instance.fire( "resizeup" );
-                }
-
-                // Fire resizewidth and resizeheight
-                if ( isResizeWidth ) {
-                    /**
-                     *
-                     * @event resizewidth
-                     *
-                     */
-                    _instance.fire( "resizewidth" );
-
-                } else if ( isResizeHeight ) {
-                    /**
-                     *
-                     * @event resizeheight
-                     *
-                     */
-                    _instance.fire( "resizeheight" );
-                }
-
-                // Fire blanket orientationchange event
-                if ( isOrientation ) {
-                    /**
-                     *
-                     * @event orientationchange
-                     *
-                     */
-                    _instance.fire( "orientationchange" );
-                }
-
-                // Fire orientationportrait and orientationlandscape
-                if ( isOrientationPortrait ) {
-                    /**
-                     *
-                     * @event orientationportrait
-                     *
-                     */
-                    _instance.fire( "orientationportrait" );
-
-                } else if ( isOrientationLandscape ) {
-                    /**
-                     *
-                     * @event orientationlandscape
-                     *
-                     */
-                    _instance.fire( "orientationlandscape" );
-                }
-
-                _currentView = currentView;
-            });
-        }
-
-        return _instance;
+        this.start();
     };
 
-    ResizeController.prototype = new Controller();
+    ResizeController.prototype = Object.create( Controller.prototype );
+
+    /**
+     *
+     * Starts the request animation frame cycle
+     * @memberof ResizeController
+     * @method destroy
+     *
+     */
+    ResizeController.prototype.start = function () {
+        var self = this;
+
+        // Call on parent cycle
+        this.go(function () {
+            var currentView = self.getViewport(),
+                isStill = (currentView.width === self.currentView.width && currentView.height === self.currentView.height),
+                isResize = (currentView.width !== self.currentView.width || currentView.height !== self.currentView.height),
+                isResizeUp = (currentView.width > self.currentView.width || currentView.height > self.currentView.height),
+                isResizeDown = (currentView.width < self.currentView.width || currentView.height < self.currentView.height),
+                isResizeWidth = (currentView.width !== self.currentView.width),
+                isResizeHeight = (currentView.height !== self.currentView.height),
+                isOrientation = (currentView.orient !== self.currentView.orient),
+                isOrientationPortrait = (currentView.orient !== self.currentView.orient && currentView.orient !== 90),
+                isOrientationLandscape = (currentView.orient !== self.currentView.orient && currentView.orient === 90);
+
+            // Fire blanket resize event
+            if ( isResize ) {
+                /**
+                 *
+                 * @event resize
+                 *
+                 */
+                self.fire( "resize" );
+            }
+
+            // Fire resizeup and resizedown
+            if ( isResizeDown ) {
+                /**
+                 *
+                 * @event resizedown
+                 *
+                 */
+                self.fire( "resizedown" );
+
+            } else if ( isResizeUp ) {
+                /**
+                 *
+                 * @event resizeup
+                 *
+                 */
+                self.fire( "resizeup" );
+            }
+
+            // Fire resizewidth and resizeheight
+            if ( isResizeWidth ) {
+                /**
+                 *
+                 * @event resizewidth
+                 *
+                 */
+                self.fire( "resizewidth" );
+
+            } else if ( isResizeHeight ) {
+                /**
+                 *
+                 * @event resizeheight
+                 *
+                 */
+                self.fire( "resizeheight" );
+            }
+
+            // Fire blanket orientationchange event
+            if ( isOrientation ) {
+                /**
+                 *
+                 * @event orientationchange
+                 *
+                 */
+                self.fire( "orientationchange" );
+            }
+
+            // Fire orientationportrait and orientationlandscape
+            if ( isOrientationPortrait ) {
+                /**
+                 *
+                 * @event orientationportrait
+                 *
+                 */
+                self.fire( "orientationportrait" );
+
+            } else if ( isOrientationLandscape ) {
+                /**
+                 *
+                 * @event orientationlandscape
+                 *
+                 */
+                self.fire( "orientationlandscape" );
+            }
+
+            self.currentView = currentView;
+        });
+    };
+
+    /**
+     *
+     * Stops the request animation frame cycle
+     * @memberof ResizeController
+     * @method destroy
+     *
+     */
+    ResizeController.prototype.destroy = function () {
+        this.stop();
+    };
 
     /**
      *
@@ -163,7 +173,7 @@
         return {
             width: window.innerWidth,
             height: window.innerHeight,
-            orient: _hasOrientation ? Math.abs( window.orientation ) : null
+            orient: this.hasOrientation ? Math.abs( window.orientation ) : null
         };
     };
 
