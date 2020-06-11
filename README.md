@@ -5,7 +5,7 @@ ProperJS // ResizeController
 
 
 
-## Installation
+### Installation
 
 ```shell
 npm i properjs-resizecontroller --save-dev
@@ -13,7 +13,7 @@ npm i properjs-resizecontroller --save-dev
 
 
 
-## Usage
+### Usage
 ResizeController doesn't use any native window or document event binding for resize handling. Rather, it uses requestAnimationFrame and supplies extra nifty scroll events for more control.
 ```javascript
 import ResizeController from "properjs-resizecontroller";
