@@ -1,11 +1,28 @@
-var ResizeController = require( "../ResizeController" );
-var controller = new ResizeController();
+import ResizeController from "../ResizeController";
 
+// Window scroll handling (RAF)
+const resizer = new ResizeController();
 
-controller.on( "resize", function () {
-    console.log( "resized" );
+resizer.on( "idle", ( viewport ) => {
+    console.log( "window idle", viewport );
 });
 
-controller.on( "orientationchange", function () {
-    console.log( "orientationchange" );
+resizer.on( "resize", ( viewport ) => {
+    console.log( "window resize", viewport );
+});
+
+resizer.on( "resizeup", ( viewport ) => {
+    console.log( "window resizeup", viewport );
+});
+
+resizer.on( "resizedown", ( viewport ) => {
+    console.log( "window resizedown", viewport );
+});
+
+resizer.on( "resizewidth", ( viewport ) => {
+    console.log( "window resizewidth", viewport );
+});
+
+resizer.on( "resizeheight", ( viewport ) => {
+    console.log( "window resizeheight", viewport );
 });

@@ -1,44 +1,50 @@
 const path = require( "path" );
 const root = path.resolve( __dirname );
-const nodeModules = "node_modules";
-const webpack = require( "webpack" );
-const BrowserSyncPlugin = require( "browser-sync-webpack-plugin" );
 
 
 
-module.exports = {
-    // devtool: "source-map",
+module.exports = ( env ) => {
+    return {
+        mode: "development",
 
 
-    plugins: [
-        new BrowserSyncPlugin({
-            open: true,
-            host: "localhost",
-            port: 3000,
-            server: {
-                baseDir: ["test"]
-            }
-        })
-    ],
+        devServer: {
+            contentBase: path.resolve( root, "test" ),
+            compress: true,
+            port: 9999,
+        },
 
 
-    resolve: {
-        modules: [root, nodeModules]
-    },
+        entry: {
+            "test": path.resolve( root, "test/test.js" ),
+        },
 
 
-    entry: {
-        "test": path.resolve( __dirname, "test", "test.js" )
-    },
+        output: {
+            path: path.resolve( root, "test/dist" ),
+            filename: "test.js",
+        },
 
 
-    output: {
-        path: path.resolve( __dirname, "test/dist/" ),
-        filename: "[name].js"
-    },
-
-
-    module: {
-        rules: []
-    }
+        module: {
+            rules: [
+                {
+                    test: /\.js/,
+                    loader: "eslint-loader",
+                    enforce: "pre",
+                },
+                {
+                    test: /\.js/,
+                    use: [
+                        {
+                            loader: "babel-loader",
+                            options: {
+                                presets: ["@babel/preset-env"],
+                            },
+                        },
+                    ],
+                },
+            ],
+        },
+    };
 };

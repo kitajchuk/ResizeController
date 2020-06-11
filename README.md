@@ -1,44 +1,46 @@
-ResizeController
-================
+ProperJS // ResizeController
+============================
 
-> Window resize / orientationchange event controller using request animation frame.
+> Overkill resize handling for professionals.
 
 
 
 ## Installation
 
 ```shell
-npm install properjs-resizecontroller --save-dev
+npm i properjs-resizecontroller --save-dev
 ```
+
 
 
 ## Usage
 ```javascript
-var ResizeController = require( "properjs-resizecontroller" ),
-    resizer = new ResizeController();
+import ResizeController from "properjs-resizecontroller";
 
-// Bind event
-resizer.on( "resize", function () {
-    // Handle event here
+// Window scroll handling (RAF)
+const resizer = new ResizeController();
+
+resizer.on( "idle", ( viewport ) => {
+    console.log( "window idle", viewport );
+});
+
+resizer.on( "resize", ( viewport ) => {
+    console.log( "window resize", viewport );
+});
+
+resizer.on( "resizeup", ( viewport ) => {
+    console.log( "window resizeup", viewport );
+});
+
+resizer.on( "resizedown", ( viewport ) => {
+    console.log( "window resizedown", viewport );
+});
+
+resizer.on( "resizewidth", ( viewport ) => {
+    console.log( "window resizewidth", viewport );
+});
+
+resizer.on( "resizeheight", ( viewport ) => {
+    console.log( "window resizeheight", viewport );
 });
 ```
-
-
-
-## Events
-- resize
-- resizedown
-- resizeup
-- resizewidth
-- resizeheight
-- orientationchange
-- orientationportrait
-- orientationlandscape
-
-
-
-## Methods
-- on( event, handler )
-- getViewport() -> { width, height, orient }
-- isPortrait()
-- isLandscape()
